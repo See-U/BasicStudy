@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="WPF学习之旅" Height="450" Width="800" Icon="/resource/images/app.png" >
+    <Window.Background>
+        <ImageBrush ImageSource="/resource/images/bg.jpg" Opacity="1" />
+    </Window.Background>
     <Grid>
-
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="Red" >欢迎来到WPF世界！！！</TextBlock>
     </Grid>
 </Window>

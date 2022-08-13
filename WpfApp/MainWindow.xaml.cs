@@ -21,10 +21,23 @@ namespace WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        int counter = 5;
         public MainWindow()
         {
-            //Thread.Sleep(4000);
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (counter > 0)
+            {
+                counter--;
+                MessageBox.Show($"你戳了我一下，你还有{counter}次机会戳我！");
+            }
+            else
+            {
+                MessageBox.Show($"你没有机会戳我咯！");
+            }
         }
     }
 }

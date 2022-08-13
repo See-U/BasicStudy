@@ -5,11 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="WPF学习之旅" Height="450" Width="800" Icon="/resource/images/app.png" >
     <Window.Background>
-        <ImageBrush ImageSource="/resource/images/bg.jpg" Opacity="1" />
+        <ImageBrush ImageSource="/resource/images/bg.jpg" Opacity="0.5" />
     </Window.Background>
     <Grid>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="Red" >欢迎来到WPF世界！！！</TextBlock>
+        <Button Content="附加进程调试" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Height="54"
+                Width="147"
+                Click="Button_Click" Margin="10,0,0,0"
+                />
     </Grid>
 </Window>

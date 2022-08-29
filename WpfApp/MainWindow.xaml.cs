@@ -27,6 +27,12 @@ namespace WpfApp
             InitializeComponent();
         }
 
+        public MainWindow(string userName)
+        {
+            InitializeComponent();
+            this.tb_CurUser.Text = $"当前用户：{userName}";
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (counter > 0)
@@ -38,6 +44,13 @@ namespace WpfApp
             {
                 MessageBox.Show($"你没有机会戳我咯！");
             }
+        }
+
+        private void btn_LogOut(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
         }
     }
 }

@@ -11,6 +11,10 @@
         <ImageBrush ImageSource="/resource/images/bg.jpg" Opacity="0.5" />
     </Window.Background>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="Red" >欢迎来到WPF世界！！！</TextBlock>
         <Button Content="附加进程调试" 
                 HorizontalAlignment="Left" 
@@ -19,5 +23,18 @@
                 Width="147"
                 Click="Button_Click" Margin="10,0,0,0"
                 />
+        <Button
+           Grid.Row="1"
+            Content="登出" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Height="54"
+                Width="147"
+                Click="btn_LogOut" Margin="10,0,0,0"
+                />
+        <TextBlock x:Name="tb_CurUser" 
+                   HorizontalAlignment="Right"
+                   FontSize="20"
+                   >当前用户</TextBlock>
     </Grid>
 </Window>

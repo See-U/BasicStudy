@@ -70,13 +70,14 @@
                 </TextBox.Style>
             </TextBox>
             <TextBox Grid.Row="2" 
-                     Name="tb_PassWord"
+                     Name="tb_PassWordPlceholder"
                      Margin="15"
                      Width="250"
                      Height="30"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
                      FontSize="15"
+                     GotFocus="tb_PassWordPlceholder_GotFocus"
                      >
                 <TextBox.Resources>
                     <VisualBrush x:Key="HintText" TileMode="None" Opacity="0.5" Stretch="None" AlignmentX="Left">
@@ -95,10 +96,21 @@
                                 <Setter Property="Background" Value="{StaticResource HintText}"/>
                             </Trigger>
                         </Style.Triggers>
+
                     </Style>
                 </TextBox.Style>
             </TextBox>
+            <PasswordBox Grid.Row="2" 
+                     Name="tb_PassWord"
+                     Margin="15"
+                     Width="250"
+                     Height="30"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     FontSize="15"
+                    LostFocus="tb_PassWord_LostFocus"></PasswordBox>
             <CheckBox
+                x:Name="cb_IsRemember"
                 Grid.Row="3"
                 Margin="10 0 0 0"
                 Width="250"
@@ -114,7 +126,7 @@
                 FontSize="18"
                 Background="#FF707070"
                 Foreground="White"  
-                    >
+                Click="Btn_Login" >
             </Button>
         </Grid>
     </Grid>

@@ -4,37 +4,102 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        BorderThickness="0" 
+        WindowStyle="None"
+        Background="#FFF"
         WindowStartupLocation="CenterScreen"
-        Title="WPF学习之旅" Height="450" Width="800" Icon="/resource/images/app.png" >
-    <Window.Background>
-        <ImageBrush ImageSource="/resource/images/bg.jpg" Opacity="0.5" />
-    </Window.Background>
+        MinWidth="600"
+        MinHeight="350"
+        d:DesignHeight="1200"
+        d:DesignWidth="1600"
+        ResizeMode="NoResize"
+        Title="WPF学习之旅" 
+        Icon="/resource/images/app.png" 
+        >
+    <Window.Resources>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Width)" 
+                                           Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="70"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Width)" 
+                                           Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="240"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition  Height="50" />
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="Red" >欢迎来到WPF世界！！！</TextBlock>
-        <Button Content="附加进程调试" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Height="54"
-                Width="147"
-                Click="Button_Click" Margin="10,0,0,0"
-                />
-        <Button
-           Grid.Row="1"
-            Content="登出" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Height="54"
-                Width="147"
-                Click="btn_LogOut" Margin="10,0,0,0"
-                />
-        <TextBlock x:Name="tb_CurUser" 
-                   HorizontalAlignment="Right"
-                   FontSize="20"
-                   >当前用户</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1"
+              Background="CornflowerBlue">
+            <Menu HorizontalAlignment="Right" 
+                  FontSize="20">
+                <MenuItem Header="联系"  >
+                    <MenuItem Header="QQ"/>
+                    <MenuItem Header="微信"/>
+                    <MenuItem Header="微博"/>
+                </MenuItem >
+                <Button Click="Btn_MinSize" 
+                        Padding="0"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                    <materialDesign:PackIcon 
+                        Kind="WindowMinimize"
+                        Foreground="Black"/>
+                </Button>
+                <Button Click="Btn_MaxSize" 
+                        Padding="0"
+                        Style="{StaticResource MaterialDesignFlatButton}" >
+                    <materialDesign:PackIcon 
+                        Kind="WindowMaximize"
+                        Foreground="Black" />
+                </Button>
+                <Button Click="Btn_Exit"
+                        Padding="0"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                    <materialDesign:PackIcon 
+                        Kind="Close" 
+                        Foreground="Black" />
+                </Button>
+            </Menu>
+        </Grid>
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+               Background="#FFCBCBCB" >
+            <StackPanel x:Name="StackPanelMain" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
+        </Grid>
+        <Grid Grid.RowSpan="2"
+              x:Name="grid" Width="240" 
+              Background="#FF6C6C8D" 
+              RenderTransformOrigin="0.5,0.5" 
+              Grid.Column="0">
+            <Button x:Name="button" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Top"
+                    Margin="10" 
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="Button_Click">
+                <materialDesign:PackIcon Kind="Menu" Foreground="White" />
+            </Button>
+            <ScrollViewer  Margin="0,50,0,0"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto"
+                              >
+                <StackPanel x:Name="Menu" Margin="10"/>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

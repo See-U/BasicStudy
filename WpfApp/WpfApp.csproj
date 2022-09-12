@@ -28,7 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="2.0.6" />
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework" Version="1.0.116" />
   </ItemGroup>
 
   <ItemGroup>

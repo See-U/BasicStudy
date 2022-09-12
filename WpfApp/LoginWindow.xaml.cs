@@ -70,7 +70,6 @@ namespace WpfApp
             this.tb_UserName.Text = Utils.GetPropertyValue("UserName").ToString();
             this.tb_PassWord.Password = Utils.GetPropertyValue("PassWord").ToString();
             this.cb_IsRemember.IsChecked = bool.TryParse(Utils.GetPropertyValue("IsRemember").ToString(),out bool val)? val:false;
-            var user = Utils.GetResorcesValue("UserName");
         }
 
         private void tb_PassWordPlceholder_GotFocus(object sender, RoutedEventArgs e)

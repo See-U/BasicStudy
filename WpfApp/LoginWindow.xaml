@@ -3,17 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
         Topmost="true"
         WindowStartupLocation="CenterScreen"
-        Background="#FF2E2E2E"
         WindowStyle="None"
         ResizeMode="NoResize"
         Title="LoginWindow" Height="400" Width="300">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+            <Setter Property="Margin" Value="0,8"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource MaterialDesignPasswordBox}">
+            <Setter Property="Margin" Value="0,8"/>
+        </Style>
+
+        <Style TargetType="{x:Type Viewbox}">
+            <Setter Property="Width" Value="18"/>
+            <Setter Property="Height" Value="18"/>
+            <Setter Property="Margin" Value="0 0 8 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Button 
@@ -30,17 +47,57 @@
                 Click="Exit_Login"
                 >
         </Button>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="30,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="1" 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="1" 
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               FontSize="18"
+                   Margin="-30 0"
+               Foreground="Gray"
+               Content="登录"
+               />
+            <materialDesign:PackIcon Grid.Row="1"
+                                 Grid.Column="0"
+                                 VerticalAlignment="Center"
+                                 Kind="Account"
+                                 Foreground="{Binding ElementName=NameTextBox, Path=BorderBrush}"/>
+            <TextBox x:Name="tb_UserName"
+                 Grid.Row="1"
+                 Grid.Column="1"
+                 materialDesign:HintAssist.Hint="请输入用户名"
+                  >
+                <TextBox.Text>
+                    <Binding
+                    Path="Name"
+                    UpdateSourceTrigger="PropertyChanged">
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <materialDesign:PackIcon  Grid.Row="2" 
+                                  Grid.Column="0"
+                                  VerticalAlignment="Center"
+                                  Kind="key"
+                                  Foreground="{Binding ElementName=PasswordBox, Path=BorderBrush}"/>
+            <PasswordBox x:Name="tb_PassWord"
+                     Grid.Row="2"
+                     Grid.Column="1"
+                     VerticalAlignment="Center"
+                     materialDesign:HintAssist.Hint="请输入密码"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
+                     />
+            <!--<TextBox Grid.Row="1" 
                      Name="tb_UserName"
                      Margin="15"
                      Width="250"
@@ -108,26 +165,47 @@
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
                      FontSize="15"
-                    LostFocus="tb_PassWord_LostFocus"></PasswordBox>
+                    LostFocus="tb_PassWord_LostFocus"></PasswordBox>-->
             <CheckBox
+                Grid.Column="1"
                 x:Name="cb_IsRemember"
                 Grid.Row="3"
                 Margin="10 0 0 0"
                 Width="250"
                 Height="30"
                 IsChecked="False"
-                Foreground="White"
                 Content="记住密码"></CheckBox>
-            <Button 
-                Grid.Row="4" 
-                Height="30"
-                Width="250"
-                Content="登录"
-                FontSize="18"
-                Background="#FF707070"
-                Foreground="White"  
-                Click="Btn_Login" >
-            </Button>
+            <Button Grid.Row="4" 
+                    Grid.Column="1"
+                    Style="{StaticResource MaterialDesignPaperDarkButton}" 
+                    x:Name="Login"
+                    ToolTip="用户登录"
+                    Content="登录"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Click="Btn_Login"/>
+            <StackPanel  Grid.Row="5" 
+                         Grid.Column="1"
+                         Orientation="Horizontal">
+                <Button BorderBrush="Transparent"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        x:Name="Register"
+                        Foreground="Black"
+                        ToolTip="注册新用户"
+                        Content="注册"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Click="Btn_Register"/>
+                <Button BorderBrush="Transparent"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="Black"
+                        Margin="80 0"
+                        x:Name="ForgetPsw"
+                        ToolTip="找回用户密码"
+                        Content="忘记密码？"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Click="ForgetPsw_Click"/>
+            </StackPanel>
         </Grid>
     </Grid>
 

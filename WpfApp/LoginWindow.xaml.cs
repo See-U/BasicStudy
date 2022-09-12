@@ -70,23 +70,18 @@ namespace WpfApp
             this.tb_UserName.Text = Utils.GetPropertyValue("UserName").ToString();
             this.tb_PassWord.Password = Utils.GetPropertyValue("PassWord").ToString();
             this.cb_IsRemember.IsChecked = bool.TryParse(Utils.GetPropertyValue("IsRemember").ToString(),out bool val)? val:false;
-            var user = Utils.GetResorcesValue("UserName");
         }
 
-        private void tb_PassWordPlceholder_GotFocus(object sender, RoutedEventArgs e)
+        private void Btn_Register(object sender, RoutedEventArgs e)
         {
-            tb_PassWord.Visibility = Visibility.Visible;
-            tb_PassWordPlceholder.Visibility = Visibility.Hidden;
-            tb_PassWord.Focus();
+            RegisterWindow registerWindow = new RegisterWindow();
+            registerWindow.Show();
+            this.Close();
         }
 
-        private void tb_PassWord_LostFocus(object sender, RoutedEventArgs e)
+        private void ForgetPsw_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(tb_PassWord.Password))
-            {
-                tb_PassWord.Visibility = Visibility.Hidden;
-                tb_PassWordPlceholder.Visibility = Visibility.Visible;
-            }
+
         }
     }
 }

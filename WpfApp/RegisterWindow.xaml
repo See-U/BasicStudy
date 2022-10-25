@@ -4,11 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        Title="注册新用户" Height="400" Width="300">
+        ResizeMode="NoResize"
+        Title="注册新用户" Height="410" Width="310">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
             <Setter Property="Margin" Value="0,8"/>
@@ -33,9 +33,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -59,12 +57,12 @@
                  Grid.Column="1"
                  materialDesign:HintAssist.Hint="请输入用户名"
                   >
-            <TextBox.Text>
+            <!--<TextBox.Text>
                 <Binding
                     Path="Name"
                     UpdateSourceTrigger="PropertyChanged">
                 </Binding>
-            </TextBox.Text>
+            </TextBox.Text>-->
         </TextBox>
         <materialDesign:PackIcon  Grid.Row="2" 
                                   Grid.Column="0"
@@ -99,22 +97,23 @@
                  Grid.Column="1"
                  x:Name="PhoneTextBox"
                  materialDesign:HintAssist.Hint="请输入手机号码"
-                 MaxLength="12"
+                 MaxLength="11"
                  materialDesign:TransitionAssist.DisableTransitions="True"/>
         <StackPanel Grid.Row="5"
                     Grid.Column="1"
-                    Orientation="Horizontal"
+                    Margin="0 10"
+                    Orientation="Vertical"
                      >
             <Button Style="{StaticResource MaterialDesignPaperDarkButton}" 
                 x:Name="Register"
-                    Margin="20,0,10,0"
                 ToolTip="注册新用户"
                 Content="注 册"
+                Background="CornflowerBlue"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                 Click="Register_Click"/>
             <Button Style="{StaticResource MaterialDesignPaperDarkButton}" 
                 x:Name="Cancel"
-                    Margin="20,0,0,0"
+                    Margin="0,10,0,0"
                 ToolTip="取消注册，返回登录窗口"
                 Content="取 消"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"

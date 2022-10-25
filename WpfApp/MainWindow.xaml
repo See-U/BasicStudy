@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         BorderThickness="0" 
         WindowStyle="None"
-        Background="#FFF"
+        AllowsTransparency="True"
+        Background="Transparent"
         WindowStartupLocation="CenterScreen"
         MinWidth="600"
         MinHeight="350"
@@ -36,71 +37,90 @@
     </Window.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition  Height="50" />
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="1"
+        <Border CornerRadius="10 0 0 10"
+                x:Name="grid" 
+                Width="240" 
+                Background="#FF6C6C8D" 
+                RenderTransformOrigin="0.5,0.5" 
+                Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Border Style="{StaticResource AvatarBorder}" >
+                    <Border.Background>
+                        <ImageBrush ImageSource="/resource/images/avatar.png"></ImageBrush>
+                    </Border.Background>
+                </Border>
+                <ScrollViewer Grid.Row="1"
+                              VerticalAlignment="Top"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Disabled"
+                              CanContentScroll="True"
+                              >
+                    <StackPanel x:Name="Menu" Margin="10"/>
+                </ScrollViewer>
+                <Button x:Name="button" 
+                        Grid.Row="2"
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Bottom"
+                    Margin="10" 
+                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                    Click="Button_Click">
+                    <materialDesign:PackIcon x:Name="menuIcon" Kind="HamburgerMenuBack"
+                                             Foreground="White" 
+                                             />
+                </Button>
+            </Grid>
+        </Border>
+        <Border  Grid.Column="1" 
+                 CornerRadius="0 10 10 0"
+                 Background="#FFCBCBCB"
+                 MouseDown="Border_MouseDown">
+            <StackPanel>
+                <Border  CornerRadius="0 10 0 0"
               Background="CornflowerBlue">
-            <Menu HorizontalAlignment="Right" 
+                    <Menu HorizontalAlignment="Right" 
                   FontSize="20">
-                <MenuItem Header="登录" Click="Login_Click"/>
-                <MenuItem Header="联系"  >
-                    <MenuItem Header="QQ"/>
-                    <MenuItem Header="微信"/>
-                    <MenuItem Header="微博"/>
-                </MenuItem >
-                <Button Click="Btn_MinSize" 
+                        <MenuItem x:Name="CurUser" Header="未登录" Click="Login_Click"/>
+                        <MenuItem Header="联系"  >
+                            <MenuItem Header="QQ"/>
+                            <MenuItem Header="微信"/>
+                            <MenuItem Header="微博"/>
+                        </MenuItem >
+                        <Button Click="Btn_MinSize" 
                         Padding="0"
                         Style="{StaticResource MaterialDesignFlatButton}">
-                    <materialDesign:PackIcon 
+                            <materialDesign:PackIcon 
                         Kind="WindowMinimize"
                         Foreground="Black"/>
-                </Button>
-                <Button Click="Btn_MaxSize" 
+                        </Button>
+                        <Button Click="Btn_MaxSize" 
                         Padding="0"
                         Style="{StaticResource MaterialDesignFlatButton}" >
-                    <materialDesign:PackIcon 
+                            <materialDesign:PackIcon 
                         Kind="WindowMaximize"
                         Foreground="Black" />
-                </Button>
-                <Button Click="Btn_Exit"
+                        </Button>
+                        <Button Click="Btn_Exit"
                         Padding="0"
                         Style="{StaticResource MaterialDesignFlatButton}">
-                    <materialDesign:PackIcon 
+                            <materialDesign:PackIcon 
                         Kind="Close" 
                         Foreground="Black" />
-                </Button>
-            </Menu>
-        </Grid>
-        <Grid Grid.Row="1"
-              Grid.Column="1"
-               Background="#FFCBCBCB" >
-            <StackPanel x:Name="StackPanelMain" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
-        </Grid>
-        <Grid Grid.RowSpan="2"
-              x:Name="grid" Width="240" 
-              Background="#FF6C6C8D" 
-              RenderTransformOrigin="0.5,0.5" 
-              Grid.Column="0">
-            <Button x:Name="button" 
-                    HorizontalAlignment="Right" 
-                    VerticalAlignment="Top"
-                    Margin="10" 
-                    Style="{StaticResource MaterialDesignFlatButton}"
-                    Click="Button_Click">
-                <materialDesign:PackIcon Kind="Menu" Foreground="White" />
-            </Button>
-            <ScrollViewer  Margin="0,50,0,0"
-                              HorizontalScrollBarVisibility="Disabled"
-                              VerticalScrollBarVisibility="Auto"
-                              >
-                <StackPanel x:Name="Menu" Margin="10"/>
-            </ScrollViewer>
-        </Grid>
+                        </Button>
+                    </Menu>
+                </Border>
+                <StackPanel x:Name="StackPanelMain" 
+                                HorizontalAlignment="Stretch"
+                                />
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

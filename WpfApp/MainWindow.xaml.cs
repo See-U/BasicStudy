@@ -38,7 +38,7 @@ namespace WpfApp
         {
             InitializeComponent();
             InitialMenu();
-            //this.tb_CurUser.Text = $"当前用户：{userName}";
+            this.CurUser.Header = userName;
         }
 
 
@@ -98,11 +98,13 @@ namespace WpfApp
         {
             if (MenuClosed)
             {
+                this.menuIcon.Kind = PackIconKind.HamburgerMenuBack;
                 Storyboard openMenu = (Storyboard)button.FindResource("OpenMenu");
                 openMenu.Begin();
             }
             else
             {
+                this.menuIcon.Kind = PackIconKind.HamburgerMenu;
                 Storyboard closeMenu = (Storyboard)button.FindResource("CloseMenu");
                 closeMenu.Begin();
             }
@@ -127,9 +129,32 @@ namespace WpfApp
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow loginWindow = new LoginWindow();
-            loginWindow.Owner = this;
-            loginWindow.Show();
+            if (this.CurUser.Header.ToString() != "未登录")
+            {
+                if (MessageBox.Show("退出登录?",
+                    "退出",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    // Do something here
+                    this.CurUser.Header = "未登录";
+                }
+            }
+            else
+            {
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.Owner = this;
+                loginWindow.ShowDialog();
+            }
+            
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
         }
     }
 }

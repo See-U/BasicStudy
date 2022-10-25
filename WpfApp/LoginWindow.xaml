@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:WpfApp"
+        xmlns:custom="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
         mc:Ignorable="d"
         Topmost="true"
+        Background="Transparent"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -28,76 +31,80 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="45"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Button 
-            Grid.Row="0"
-            Content="×" 
-                Width="35"
-                Height="35"
-                FontSize="25"
-                Background="Transparent" 
-                BorderBrush="Transparent"
-                Foreground="Gray"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Click="Exit_Login"
-                >
-        </Button>
-        <Grid Grid.Row="1" Margin="30,0">
+    <Border CornerRadius="10" Background="#FF6C6C8D">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" 
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"
-               FontSize="18"
-                   Margin="-30 0"
-               Foreground="Gray"
-               Content="登录"
-               />
-            <materialDesign:PackIcon Grid.Row="1"
+            <Border HorizontalAlignment="Center" Width="300">
+                <StackPanel  Orientation="Horizontal">
+                    <Label Content="Login" Margin="10 0" Width="245"></Label>
+                    <Button Click="Exit_Login"
+                Width="30"
+                Height="20"
+                Padding="2"
+                VerticalContentAlignment="Top"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                        <materialDesign:PackIcon 
+                        Kind="Close" 
+                        Foreground="Black" />
+                    </Button >
+                </StackPanel>
+               
+            </Border>
+
+            <Grid Grid.Row="1" Margin="30,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" 
+                        Grid.Row="0"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource AvatarBorder}">
+                    <Border.Background>
+                        <ImageBrush ImageSource="/resource/images/avatar.png"></ImageBrush>
+                    </Border.Background>
+                </Border>
+                <materialDesign:PackIcon Grid.Row="1"
                                  Grid.Column="0"
                                  VerticalAlignment="Center"
                                  Kind="Account"
                                  Foreground="{Binding ElementName=NameTextBox, Path=BorderBrush}"/>
-            <TextBox x:Name="tb_UserName"
+                <TextBox x:Name="tb_UserName"
                  Grid.Row="1"
                  Grid.Column="1"
                  materialDesign:HintAssist.Hint="请输入用户名"
                   >
-                <TextBox.Text>
-                    <Binding
+                    <TextBox.Text>
+                        <Binding
                     Path="Name"
                     UpdateSourceTrigger="PropertyChanged">
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <materialDesign:PackIcon  Grid.Row="2" 
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <materialDesign:PackIcon  Grid.Row="2" 
                                   Grid.Column="0"
                                   VerticalAlignment="Center"
                                   Kind="key"
                                   Foreground="{Binding ElementName=PasswordBox, Path=BorderBrush}"/>
-            <PasswordBox x:Name="tb_PassWord"
+                <PasswordBox x:Name="tb_PassWord"
                      Grid.Row="2"
                      Grid.Column="1"
                      VerticalAlignment="Center"
                      materialDesign:HintAssist.Hint="请输入密码"
                      materialDesign:TextFieldAssist.HasClearButton="True"
                      />
-            <!--<TextBox Grid.Row="1" 
+                <!--<TextBox Grid.Row="1" 
                      Name="tb_UserName"
                      Margin="15"
                      Width="250"
@@ -166,7 +173,7 @@
                      VerticalAlignment="Center"
                      FontSize="15"
                     LostFocus="tb_PassWord_LostFocus"></PasswordBox>-->
-            <CheckBox
+                <CheckBox
                 Grid.Column="1"
                 x:Name="cb_IsRemember"
                 Grid.Row="3"
@@ -175,18 +182,19 @@
                 Height="30"
                 IsChecked="False"
                 Content="记住密码"></CheckBox>
-            <Button Grid.Row="4" 
+                <Button Grid.Row="4" 
                     Grid.Column="1"
                     Style="{StaticResource MaterialDesignPaperDarkButton}" 
                     x:Name="Login"
                     ToolTip="用户登录"
+                    Background="CornflowerBlue"
                     Content="登录"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Click="Btn_Login"/>
-            <StackPanel  Grid.Row="5" 
+                <StackPanel  Grid.Row="5" 
                          Grid.Column="1"
                          Orientation="Horizontal">
-                <Button BorderBrush="Transparent"
+                    <Button BorderBrush="Transparent"
                         BorderThickness="0"
                         Background="Transparent"
                         x:Name="Register"
@@ -195,7 +203,7 @@
                         Content="注册"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Click="Btn_Register"/>
-                <Button BorderBrush="Transparent"
+                    <Button BorderBrush="Transparent"
                         BorderThickness="0"
                         Background="Transparent"
                         Foreground="Black"
@@ -205,8 +213,19 @@
                         Content="忘记密码？"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Click="ForgetPsw_Click"/>
-            </StackPanel>
+                </StackPanel>
+            </Grid>
+            <custom:LoadingSpinner
+            Grid.Row="1"
+            Grid.Column="1"
+            x:Name="LSpinner"
+            IsLoading="{Binding Path=IsLoading}"
+            Margin="10"
+            Cap="Triangle"
+            Diameter="100"
+            Thickness="8"
+            Color="Gray" />
         </Grid>
-    </Grid>
+    </Border>
 
 </Window>

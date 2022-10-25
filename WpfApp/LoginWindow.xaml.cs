@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WpfApp.Common;
+using WpfApp.Model;
 
 namespace WpfApp
 {
@@ -20,6 +11,27 @@ namespace WpfApp
     /// </summary>
     public partial class LoginWindow : Window
     {
+        private bool _IsLoading = false;
+        public bool IsLoading
+        {
+            get { return _IsLoading; }
+            set
+            {
+                _IsLoading = value;
+                NotifyPropertyChange("IsLoading");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChange(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        
+        }
+
         public LoginWindow()
         {
             InitializeComponent();
@@ -31,8 +43,9 @@ namespace WpfApp
             this.Close();
         }
 
-        private void Btn_Login(object sender, RoutedEventArgs e)
+        private  void Btn_Login(object sender, RoutedEventArgs e)
         {
+
             if (string.IsNullOrEmpty(this.tb_UserName.Text))
             {
                 MessageBox.Show("用户名不可以为空！");
@@ -55,6 +68,26 @@ namespace WpfApp
                     Utils.SetPropertyValue("UserName", "");
                     Utils.SetPropertyValue("PassWord", "");
                 }
+                IsLoading = true;
+                using (var db = new WpfContext())
+                {
+                    var user = db.Users.Where(u => u.UserName.Equals(this.tb_UserName.Text)).FirstOrDefault();
+                    if (user == null)
+                    {
+                        MessageBox.Show($"用户【{this.tb_UserName.Text}】不存在！");
+                        return;
+                    }
+                    else
+                    {
+                        if (!user.PassWord.Equals(this.tb_PassWord.Password))
+                        {
+                            MessageBox.Show("用户密码错误！");
+                            return;
+                        }
+                    }
+                }
+                IsLoading = false;
+
                 MessageBox.Show("登录成功！");
                 MainWindow mainWindow = new MainWindow(this.tb_UserName.Text);
                 mainWindow.Show();
@@ -75,7 +108,8 @@ namespace WpfApp
         private void Btn_Register(object sender, RoutedEventArgs e)
         {
             RegisterWindow registerWindow = new RegisterWindow();
-            registerWindow.Show();
+            registerWindow.Owner = this;
+            registerWindow.ShowDialog();
             this.Close();
         }
 

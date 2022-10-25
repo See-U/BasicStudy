@@ -4,27 +4,109 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp.UserControls"
+             xmlns:loading="clr-namespace:WpfApp.UserControls.LoadingSpinner"
              mc:Ignorable="d" 
              Width="1500"
+             Background="White"
              Height="850"
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Background>
-        <ImageBrush ImageSource="../resource/images/bg.jpg" />
-    </UserControl.Background>
+    <UserControl.Resources>
+        <!--  TabItem的样式  -->
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <!--  主Border  -->
+                            <Border
+                                Name="bd"
+                                Margin="5,10,5,0"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Gray"
+                                BorderThickness="3"
+                                CornerRadius="7">
+                                <ContentPresenter
+                                    Margin="20,10"
+                                    VerticalAlignment="Center"
+                                    ContentSource="Header" />
+                            </Border>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="bd" Property="BorderThickness" Value="2" />
+                                <Setter TargetName="bd" Property="Margin" Value="0" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True" />
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+
+
+        <!--  TabControl的样式  -->
+        <Style TargetType="{x:Type TabControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Border Padding="10">
+                                <TabPanel IsItemsHost="True" />
+                            </Border>
+                            <Border
+                                Grid.Row="1"
+                                Padding="10"
+                                BorderBrush="Gray"
+                                BorderThickness="2">
+                                <ContentPresenter Name="PART_SelectedContentHost" ContentSource="SelectedContent" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Border Margin="5" Grid.Column="0" Background="#FFC515C5" VerticalAlignment="Stretch" CornerRadius="12"></Border>
-        <Border Margin="5" Grid.Column="1" Background="#FF7C54A0" VerticalAlignment="Stretch" CornerRadius="12"/>
-        <Border Margin="5" Grid.Column="2" Background="#FF13CD80" VerticalAlignment="Stretch" CornerRadius="12"/>
-        <Border Margin="5" Grid.Column="3" Background="#FF2E92e6" VerticalAlignment="Stretch" CornerRadius="12"/>
+        <TabControl>
+            <TabItem Header="Loadings" Background="#FFA6D5FF">
+                <Border >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="250"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <loading:LoadingSpinner1UC/>
+                        <loading:LoadingSpinner2UC Grid.Column="1" />
+                        <loading:LoadingSpinner3UC Grid.Column="2" />
+                        <loading:LoadingSpinner4UC Grid.Column="3" />
+                        <loading:LoadingSpinner5UC Grid.Column="4" />
+                    </Grid>
+                </Border>
+            </TabItem>
+            <TabItem Header="页签2">
+                <DockPanel>
+                    <Button DockPanel.Dock="Bottom">hehe</Button>
+                    <TextBox />
+                </DockPanel>
+            </TabItem>
+            <TabItem Background="#FFAEFF7A" Header="页签3"/>
+        </TabControl>
+        
     </Grid>
 </UserControl>

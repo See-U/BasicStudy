@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:WpfApp"
         xmlns:custom="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
+        xmlns:login="clr-namespace:WpfApp.ViewModel.Login" d:DataContext="{d:DesignInstance Type=login:LoginViewModel}"
         mc:Ignorable="d"
         Topmost="true"
         Background="Transparent"
@@ -39,13 +40,14 @@
             </Grid.RowDefinitions>
             <Border HorizontalAlignment="Center" Width="300">
                 <StackPanel  Orientation="Horizontal">
-                    <Label Content="Login" Margin="10 0" Width="245"></Label>
-                    <Button Click="Exit_Login"
-                Width="30"
-                Height="20"
-                Padding="2"
-                VerticalContentAlignment="Top"
-                        Style="{StaticResource MaterialDesignFlatButton}">
+                    <Label Content="Login" Margin="10 0" Width="125"></Label>
+                    <Label Content="{Binding DateTime}" ContentStringFormat=" {0:G}" Width="125" FontSize="12"/>
+                    <Button  Click="Exit_Login"
+                             Width="30"
+                             Height="20"
+                             Padding="2"
+                             VerticalContentAlignment="Top"
+                             Style="{StaticResource MaterialDesignFlatButton}">
                         <materialDesign:PackIcon 
                         Kind="Close" 
                         Foreground="Black" />

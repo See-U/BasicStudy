@@ -7,11 +7,56 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="MyToolTipStyle" TargetType="ToolTip">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Path HorizontalAlignment="Right" 
+                                  VerticalAlignment="Center"
+                                  Data="M 6 0 L 0 6 L 12 6 Z"
+                                  Fill="#E6333333"
+                                  Margin="0 0 10 0"></Path>
+                            <Border CornerRadius="2"
+                                    Background="#E6333333"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    >
+                                <TextBlock Text="{TemplateBinding ContentControl.Content}"
+                                           Foreground="White"
+                                           LineHeight="20"
+                                           Margin="6"></TextBlock>
+                            </Border>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <materialDesign:PackIcon Kind="{Binding Icon}"
+        <StackPanel  Background="#FF6C6C8D" >
+            <materialDesign:PackIcon Kind="{Binding Icon}"
                                  Width="15" Height="15" 
                                  Margin="10 16"
-                                 Foreground="White"/>
+                                 ToolTipService.IsEnabled="False"
+                                 Foreground="White">
+            </materialDesign:PackIcon>
+            <StackPanel.ToolTip>
+                <ToolTip Placement="Right"  Background="#FF6C6C8D" >
+                    <ListView x:Name="toolTipLst" ItemsSource="{Binding SubItems}"
+                                 >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"
+                                   Padding="20 5"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ToolTip>
+            </StackPanel.ToolTip>
+        </StackPanel>
+        
         <ListBoxItem x:Name="ListViewItemMenu"
                      Content="{Binding Header}"
                      Padding="37 14"

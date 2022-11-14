@@ -19,7 +19,7 @@
         </Style>
         <PowerEase x:Key="powerEase" Power="2" EasingMode="EaseInOut"/>
     </UserControl.Resources>
-    <Canvas Background="White"
+    <Canvas Background="Transparent" 
             Width="200"
             Height="200">
         <Canvas.Triggers>

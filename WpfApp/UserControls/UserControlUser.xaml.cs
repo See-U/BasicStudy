@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,13 +31,17 @@ namespace WpfApp.UserControls
                (CollectionViewSource)FindResource(nameof(userViewSource));
         }
 
-        private void Refresh_Click(object sender, RoutedEventArgs e)
+        private async void Refresh_Click(object sender, RoutedEventArgs e)
         {
+            this.loading.Visibility = Visibility.Visible;
             using (var _context = new WpfContext())
             {
-                _context.Database.EnsureCreated();
-                _context.Users.Load();
-
+                await Task.Factory.StartNew(() =>
+                {
+                    _context.Database.EnsureCreated();
+                    _context.Users.Load();
+                });
+                this.loading.Visibility = Visibility.Collapsed;
                 // bind to the source
                 userViewSource.Source =
                     _context.Users.Local.ToObservableCollection();

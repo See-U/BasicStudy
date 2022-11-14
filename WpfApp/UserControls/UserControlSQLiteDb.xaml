@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp.resource"
+             xmlns:UC="clr-namespace:WpfApp.UserControls.LoadingSpinner"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Loaded="UserControl_Loaded">
@@ -41,5 +42,7 @@
         </DataGrid>
         <Button Content="保存" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
         Click="Button_Click" Height="30" Width="123"/>
+        <UC:LoadingSpinner3UC x:Name="loading"
+            Visibility="Collapsed"/>
     </Grid>
 </UserControl>

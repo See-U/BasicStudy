@@ -98,12 +98,21 @@ namespace WpfApp
         {
             if (MenuClosed)
             {
+                foreach (UserControlMenuItem item in this.Menu.Children)
+                {
+                    item.ExpanderMenu.Visibility = Visibility.Visible;
+                }
                 this.menuIcon.Kind = PackIconKind.HamburgerMenuBack;
                 Storyboard openMenu = (Storyboard)button.FindResource("OpenMenu");
                 openMenu.Begin();
             }
             else
             {
+                foreach (UserControlMenuItem item in this.Menu.Children)
+                {
+                    item.ExpanderMenu.IsExpanded = false;
+                    item.ExpanderMenu.Visibility = Visibility.Collapsed;
+                }
                 this.menuIcon.Kind = PackIconKind.HamburgerMenu;
                 Storyboard closeMenu = (Storyboard)button.FindResource("CloseMenu");
                 closeMenu.Begin();

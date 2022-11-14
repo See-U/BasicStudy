@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using WpfApp.Common;
 using WpfApp.Model;
+using WpfApp.ViewModel.Login;
 
 namespace WpfApp
 {
@@ -11,6 +12,7 @@ namespace WpfApp
     /// </summary>
     public partial class LoginWindow : Window
     {
+        LoginViewModel loginViewModel = new LoginViewModel();
         private bool _IsLoading = false;
         public bool IsLoading
         {
@@ -35,6 +37,7 @@ namespace WpfApp
         public LoginWindow()
         {
             InitializeComponent();
+            this.DataContext = loginViewModel;
             IntialData();
         }
 

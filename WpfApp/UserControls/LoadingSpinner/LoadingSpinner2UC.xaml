@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfApp.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
+    <Grid Background="Transparent" >
         <Grid.Resources>
             <Style x:Key="ellipse" TargetType="Ellipse">
                 <Setter Property="Width" Value="15"/>

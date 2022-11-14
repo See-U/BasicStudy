@@ -46,5 +46,9 @@ namespace WpfApp.UserControls
             }
         }
 
+        private void StackPanel_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

@@ -34,17 +34,22 @@ namespace WpfApp.resource
                 (CollectionViewSource)FindResource(nameof(categoryViewSource));
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _context.Database.EnsureCreated();
+            this.loading.Visibility = Visibility.Visible;
+            await Task.Factory.StartNew(() => {
+                _context.Database.EnsureCreated();
 
-            // load the entities into EF Core
-            _context.Categories.Load();
+                // load the entities into EF Core
+                _context.Categories.Load();
 
-            // bind to the source
-            categoryViewSource.Source =
-                _context.Categories.Local.ToObservableCollection();
-
+                // bind to the source
+                App.Current.Dispatcher.Invoke(() => {
+                    categoryViewSource.Source =
+                    _context.Categories.Local.ToObservableCollection();
+                });
+            });
+            this.loading.Visibility = Visibility.Collapsed;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

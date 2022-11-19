@@ -23,18 +23,23 @@ namespace WpfApp.Model
         /// 用户名
         /// </summary>
         [Required]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         /// <summary>
         /// 密码
         /// </summary>
         [Required]
-        public string PassWord { get; set; }
+        public string? PassWord { get; set; }
 
         /// <summary>
         /// 手机号码
         /// </summary>
         [StringLength(11)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
+
+        /// <summary>
+        /// 是否记住用户
+        /// </summary>
+        public bool? IsRemember { get; set; }
     }
 }

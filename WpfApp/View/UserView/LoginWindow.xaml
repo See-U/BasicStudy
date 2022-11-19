@@ -1,12 +1,13 @@
-﻿<Window x:Class="WpfApp.LoginWindow"
+﻿<Window x:Class="WpfApp.View.UserView.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:WpfApp"
-        xmlns:custom="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
+        xmlns:UC="clr-namespace:WpfApp.UserControls.LoadingSpinner"
         xmlns:login="clr-namespace:WpfApp.ViewModel.Login" d:DataContext="{d:DesignInstance Type=login:LoginViewModel}"
+        xmlns:Helper="clr-namespace:WpfApp.Common"
         mc:Ignorable="d"
         Topmost="true"
         Background="Transparent"
@@ -41,7 +42,7 @@
             <Border HorizontalAlignment="Center" Width="300">
                 <StackPanel  Orientation="Horizontal">
                     <Label Content="Login" Margin="10 0" Width="125"></Label>
-                    <Label Content="{Binding DateTime}" ContentStringFormat=" {0:G}" Width="125" FontSize="12"/>
+                    <Label Content="{Binding CurDateTime}" ContentStringFormat=" {0:G}" Width="125" FontSize="12"/>
                     <Button  Click="Exit_Login"
                              Width="30"
                              Height="20"
@@ -88,9 +89,9 @@
                  materialDesign:HintAssist.Hint="请输入用户名"
                   >
                     <TextBox.Text>
-                        <Binding
-                    Path="Name"
-                    UpdateSourceTrigger="PropertyChanged">
+                        <Binding 
+                            Path="CurUser.UserName"
+                            UpdateSourceTrigger="PropertyChanged">
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
@@ -99,13 +100,17 @@
                                   VerticalAlignment="Center"
                                   Kind="key"
                                   Foreground="{Binding ElementName=PasswordBox, Path=BorderBrush}"/>
-                <PasswordBox x:Name="tb_PassWord"
-                     Grid.Row="2"
-                     Grid.Column="1"
-                     VerticalAlignment="Center"
-                     materialDesign:HintAssist.Hint="请输入密码"
-                     materialDesign:TextFieldAssist.HasClearButton="True"
-                     />
+                <PasswordBox 
+                    x:Name="tb_PassWord"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Helper:PasswordBoxHelper.Attach="True"
+                    Helper:PasswordBoxHelper.Password="{Binding 
+                    Path=CurUser.PassWord,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="请输入密码"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    />
                 <!--<TextBox Grid.Row="1" 
                      Name="tb_UserName"
                      Margin="15"
@@ -175,16 +180,17 @@
                      VerticalAlignment="Center"
                      FontSize="15"
                     LostFocus="tb_PassWord_LostFocus"></PasswordBox>-->
-                <CheckBox
-                Grid.Column="1"
-                x:Name="cb_IsRemember"
-                Grid.Row="3"
-                Margin="10 0 0 0"
-                Width="250"
-                Height="30"
-                IsChecked="False"
-                Content="记住密码"></CheckBox>
-                <Button Grid.Row="4" 
+                <CheckBox 
+                    Grid.Column="1"
+                    x:Name="cb_IsRemember"  
+                    IsChecked="{Binding CurUser.IsRemember}"
+                    Grid.Row="3"
+                    Margin="10 0 0 0"
+                    Width="250"
+                    Height="30"
+                    Content="记住密码"></CheckBox>
+                <Button 
+                    Grid.Row="4" 
                     Grid.Column="1"
                     Style="{StaticResource MaterialDesignPaperDarkButton}" 
                     x:Name="Login"
@@ -192,7 +198,8 @@
                     Background="CornflowerBlue"
                     Content="登录"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Click="Btn_Login"/>
+                    Command="{Binding LoginCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
                 <StackPanel  Grid.Row="5" 
                          Grid.Column="1"
                          Orientation="Horizontal">
@@ -217,16 +224,11 @@
                         Click="ForgetPsw_Click"/>
                 </StackPanel>
             </Grid>
-            <custom:LoadingSpinner
-            Grid.Row="1"
-            Grid.Column="1"
-            x:Name="LSpinner"
-            IsLoading="{Binding Path=IsLoading}"
-            Margin="10"
-            Cap="Triangle"
-            Diameter="100"
-            Thickness="8"
-            Color="Gray" />
+            <UC:LoadingSpinner1UC 
+                x:Name="loading"
+                Grid.Column="1"
+                Grid.Row="1"
+                Visibility="{Binding IsLoading}"/>
         </Grid>
     </Border>
 

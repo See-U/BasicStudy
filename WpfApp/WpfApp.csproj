@@ -36,6 +36,7 @@
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.9" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.116" />
   </ItemGroup>
 

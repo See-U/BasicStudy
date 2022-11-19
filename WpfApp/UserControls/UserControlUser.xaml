@@ -53,7 +53,7 @@
                             Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <UC:LoadingSpinner2UC
+        <UC:LoadingSpinner1UC
             x:Name="loading"
             Visibility="Collapsed"
             Grid.Row="1"

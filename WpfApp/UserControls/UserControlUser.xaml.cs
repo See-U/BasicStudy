@@ -23,6 +23,8 @@ namespace WpfApp.UserControls
     /// </summary>
     public partial class UserControlUser : UserControl
     {
+        private readonly WpfContext _context =
+            new WpfContext();
         private CollectionViewSource userViewSource;
         public UserControlUser()
         {
@@ -34,18 +36,22 @@ namespace WpfApp.UserControls
         private async void Refresh_Click(object sender, RoutedEventArgs e)
         {
             this.loading.Visibility = Visibility.Visible;
-            using (var _context = new WpfContext())
+            await Task.Factory.StartNew(() =>
             {
-                await Task.Factory.StartNew(() =>
-                {
-                    _context.Database.EnsureCreated();
-                    _context.Users.Load();
-                });
-                this.loading.Visibility = Visibility.Collapsed;
-                // bind to the source
-                userViewSource.Source =
-                    _context.Users.Local.ToObservableCollection();
-            }
+                _context.Database.EnsureCreated();
+                _context.Users.Load();
+            });
+            this.loading.Visibility = Visibility.Collapsed;
+            // bind to the source
+            userViewSource.Source =
+                _context.Users.Local.ToObservableCollection();
+        }
+
+        protected override void OnContextMenuClosing(ContextMenuEventArgs e)
+        {
+            // clean up database connections
+            _context.Dispose();
+            base.OnContextMenuClosing(e);
         }
     }
 }

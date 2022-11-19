@@ -1,23 +1,13 @@
 ﻿using MaterialDesignThemes.Wpf;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WpfApp.DataBase;
+using WpfApp.Common;
 using WpfApp.resource;
 using WpfApp.UserControls;
+using WpfApp.View.UserView;
 using WpfApp.ViewModel;
 
 namespace WpfApp
@@ -138,7 +128,7 @@ namespace WpfApp
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            if (this.CurUser.Header.ToString() != "未登录")
+            if (GlobalModel.Instance.CurUserName != "未登录")
             {
                 if (MessageBox.Show("退出登录?",
                     "退出",
@@ -146,7 +136,7 @@ namespace WpfApp
                     MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     // Do something here
-                    this.CurUser.Header = "未登录";
+                    GlobalModel.Instance.CurUserName = "未登录";
                 }
             }
             else

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
+        xmlns:global="clr-namespace:WpfApp.Common"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         BorderThickness="0" 
@@ -88,7 +89,7 @@
               Background="CornflowerBlue">
                     <Menu HorizontalAlignment="Right" 
                   FontSize="20">
-                        <MenuItem x:Name="CurUser" Header="未登录" Click="Login_Click"/>
+                        <MenuItem x:Name="CurUser" Header="{Binding CurUserName,Source={x:Static global:GlobalModel.Instance}}" Click="Login_Click"/>
                         <MenuItem Header="联系"  >
                             <MenuItem Header="QQ"/>
                             <MenuItem Header="微信"/>

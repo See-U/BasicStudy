@@ -5,7 +5,7 @@ using WpfApp.Common;
 using WpfApp.Model;
 using WpfApp.ViewModel.Login;
 
-namespace WpfApp
+namespace WpfApp.View.UserView
 {
     /// <summary>
     /// LoginWindow.xaml 的交互逻辑

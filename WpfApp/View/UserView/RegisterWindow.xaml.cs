@@ -70,6 +70,8 @@ namespace WpfApp.View.UserView
                     _context.SaveChanges();
                     MessageBox.Show($"注册成功！");
                     this.Close();
+                    LoginWindow loginWindow = new LoginWindow();
+                    loginWindow.Show();
                 }
             }
             catch (Exception ex)

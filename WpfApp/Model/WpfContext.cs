@@ -19,7 +19,9 @@ namespace WpfApp.Model
         {
             optionsBuilder.UseSqlite(
                 "Data Source=wpfs.db");
+
             optionsBuilder.UseLazyLoadingProxies();
+            
         }
     }
 }

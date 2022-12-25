@@ -73,7 +73,7 @@
                     VerticalAlignment="Bottom"
                     Margin="10" 
                     Style="{StaticResource MaterialDesignFlatLightButton}"
-                    Click="Button_Click">
+                    Click="Button_Click" Cursor="Hand">
                     <materialDesign:PackIcon x:Name="menuIcon" Kind="HamburgerMenuBack"
                                              Foreground="White" 
                                              />
@@ -86,7 +86,7 @@
                  MouseDown="Border_MouseDown">
             <StackPanel>
                 <Border  CornerRadius="0 10 0 0"
-              Background="CornflowerBlue">
+              Background="#FF6C6C8D">
                     <Menu HorizontalAlignment="Right" 
                   FontSize="20">
                         <MenuItem x:Name="CurUser" Header="{Binding CurUserName,Source={x:Static global:GlobalModel.Instance}}" Click="Login_Click"/>
@@ -97,21 +97,22 @@
                         </MenuItem >
                         <Button Click="Btn_MinSize" 
                         Padding="0"
-                        Style="{StaticResource MaterialDesignFlatButton}">
+                        Style="{StaticResource MaterialDesignFlatButton}" 
+                                Margin="0,0,-20,0"
+                                Height="49" Width="49">
                             <materialDesign:PackIcon 
                         Kind="WindowMinimize"
                         Foreground="Black"/>
                         </Button>
                         <Button Click="Btn_MaxSize" 
-                        Padding="0"
-                        Style="{StaticResource MaterialDesignFlatButton}" >
+                           Margin="0,0,-20,0"
+                        Style="{StaticResource MaterialDesignFlatButton}" Height="49" Width="49" >
                             <materialDesign:PackIcon 
                         Kind="WindowMaximize"
                         Foreground="Black" />
                         </Button>
-                        <Button Click="Btn_Exit"
-                        Padding="0"
-                        Style="{StaticResource MaterialDesignFlatButton}">
+                        <Button Click="Btn_Exit"  Margin="0,0,-10,0" 
+                        Style="{StaticResource MaterialDesignFlatButton}" Height="49" Width="59">
                             <materialDesign:PackIcon 
                         Kind="Close" 
                         Foreground="Black" />

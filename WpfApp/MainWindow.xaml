@@ -120,7 +120,7 @@
                     </Menu>
                 </Border>
                 <StackPanel x:Name="StackPanelMain" 
-                                HorizontalAlignment="Stretch"
+                                HorizontalAlignment="Center"
                                 />
             </StackPanel>
         </Border>

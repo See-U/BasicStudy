@@ -5,12 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp.UserControls"
              xmlns:loading="clr-namespace:WpfApp.UserControls.LoadingSpinner"
+             xmlns:Icon="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             Width="1500"
-             Background="White"
-             Height="850"
-             d:DesignHeight="450" d:DesignWidth="1200">
+             Width="1080"
+             Background="#b0b9c6"
+             Height="auto"
+             d:DesignHeight="1050" d:DesignWidth="1200">
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         <!--  TabItem的样式  -->
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Template">
@@ -45,8 +47,6 @@
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="FontSize" Value="18" />
         </Style>
-
-
 
         <!--  TabControl的样式  -->
         <Style TargetType="{x:Type TabControl}">
@@ -99,14 +99,183 @@
                     </Grid>
                 </Border>
             </TabItem>
-            <TabItem Header="页签2">
-                <DockPanel>
-                    <Button DockPanel.Dock="Bottom">hehe</Button>
-                    <TextBox />
-                </DockPanel>
+            <TabItem Header="DataGrid">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <!--页面标题-->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               FontSize="22"
+                               Margin="0,10,0,0"
+                               FontWeight="SemiBold"
+                               Foreground="#121518"
+                               HorizontalAlignment="Left"
+                               Text="会员"></TextBlock>
+
+                    <!--新增按钮-->
+                    <Button Style="{StaticResource addButton}"
+                            Grid.Column="1"
+                            Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIcon Kind="Plus" 
+                                           VerticalAlignment="Center"
+                                           Width="11"
+                                           Height="11"
+                                           Margin="0,1,8,0" />
+                            <TextBlock Text="新增会员"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!--分割线-->
+                    <Separator Grid.Row="2" 
+                               Height="1"
+                               Background="#dae2ea"
+                               Margin="-1,0,10,0"/>
+
+                    <!--Tab按钮-->
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                Margin="0,10,0,0">
+                        <Button Content="俱乐部员工"  Style="{StaticResource tabButton}" BorderBrush="#784ff2"></Button>
+                        <Button Content="玩家"  Style="{StaticResource tabButton}"></Button>
+                        <Button Content="存档"  Style="{StaticResource tabButton}"></Button>
+                    </StackPanel>
+
+                    <!--计数标题-->
+                    <TextBlock Grid.Row="3"
+                               Text="168个员工"                              
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Foreground="#121518"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+
+                    <TextBlock Grid.Row="3"
+                               Text="过滤"                              
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Foreground="#121518"
+                               Margin="0,0,215,0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"/>
+
+                    <!--过滤文本框-->
+                    <Grid Grid.Row="3"
+                          Width="200"
+                          HorizontalAlignment="Right">
+                        <TextBlock Margin="10 0" 
+                                   VerticalAlignment="Center"
+                                   Foreground="#b0b9c6"
+                                   FontSize="15"
+                                   IsHitTestVisible="False"
+                                   Panel.ZIndex="1"
+                                   Text="查找会员..."
+                                   Visibility="{Binding ElementName=txtFilter,Path=Text, Converter={StaticResource BoolToVis}}" />
+                        <TextBox x:Name="txtFilter"  Style="{StaticResource textBoxFilter}"/>
+                        <Icon:PackIcon Kind="Magnify" 
+                                       Width="15"
+                                       Height="15"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,15,0"
+                                       Foreground="#b0b9c6"
+                                       HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <!--会员数据表格-->
+                    <DataGrid    Grid.Row="4"  
+                                 x:Name="membersDatagrid" 
+                                 Style="{DynamicResource DataGridStyle1}" 
+                                 RowStyle="{DynamicResource DataGridRowStyle1}" 
+                                 ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                 CellStyle="{DynamicResource DataGridCellStyle1}">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn CanUserResize="False" Width="auto">
+                                <DataGridCheckBoxColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <CheckBox />
+                                    </DataTemplate>
+                                </DataGridCheckBoxColumn.HeaderTemplate>
+                            </DataGridCheckBoxColumn>
+
+                            <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number}"/>
+
+                            <DataGridTemplateColumn Header="会员" IsReadOnly="True" Width="*" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding BgColor}">
+                                                <TextBlock Text="{Binding Character}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                            </Border>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="角色" IsReadOnly="True"  Width="*" Binding="{Binding Position}"/>
+                            <DataGridTextColumn Header="邮件" IsReadOnly="True"  Width="*" Binding="{Binding Email}"/>
+                            <DataGridTextColumn Header="电话号码" IsReadOnly="True"  Width="*" Binding="{Binding Phone}"/>
+
+                            <DataGridTemplateColumn Header="操作" IsReadOnly="True" Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Style="{StaticResource gridEditButton}">
+                                                <Icon:PackIcon Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
+                                            </Button>
+                                            <Button Style="{StaticResource gridRemoveButton}" Margin="5 0 0 0">
+                                                <Icon:PackIcon Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!--分页部分-->
+                    <Border Grid.Row="5" 
+                            HorizontalAlignment="Right" 
+                            BorderBrush="#dee4ec"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Padding="5"
+                            Background="White"
+                            Margin="0 10 10 10">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{StaticResource pagingButton}">
+                                <Icon:PackIcon Kind="ChevronLeft" Style="{StaticResource pagingButtonIcon}"/>
+                            </Button>
+                            <Rectangle Width="1"  Fill="#dee4ec" Margin="5 10"/>
+                            <Button Style="{StaticResource pagingButton}" Content="1"/>
+                            <Button Style="{StaticResource pagingButton}" Content="2" Background="#7950f2" Foreground="#ffffff"/>
+                            <Button Style="{StaticResource pagingButton}" Content="3"/>
+
+                            <TextBlock Text="..." Foreground="#6c7682" VerticalAlignment="Center" FontSize="15" Margin="10 0"/>
+
+                            <Button Style="{StaticResource pagingButton}" Content="7"/>
+                            <Button Style="{StaticResource pagingButton}" Content="8"/>
+                            <Button Style="{StaticResource pagingButton}" Content="9"/>
+                            <Rectangle Width="1"  Fill="#dee4ec" Margin="5 10"/>
+                            <Button Style="{StaticResource pagingButton}">
+                                <Icon:PackIcon Kind="ChevronRight" Style="{StaticResource pagingButtonIcon}"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
             </TabItem>
             <TabItem Background="#FFAEFF7A" Header="页签3"/>
         </TabControl>
-        
+
     </Grid>
+
 </UserControl>
